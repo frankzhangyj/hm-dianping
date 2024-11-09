@@ -1,13 +1,13 @@
 hmdp:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    host: localhost
+    host:
     port: 3306
     database: hmdp
     username: root
     password: 123456
   redis:
-    host: localhost
+    host:
     port: 6379
     password: 123456
     database: 1
