@@ -1,0 +1,2 @@
+hm-dianping_server/src/main/resources/application.yaml-dev.yml filter=git-crypt diff=git-crypt
+hm-dianping_server/src/main/resources/application.yaml-prod.yml filter=git-crypt diff=git-crypt
