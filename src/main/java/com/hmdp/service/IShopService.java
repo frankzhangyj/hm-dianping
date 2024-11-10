@@ -1,5 +1,6 @@
 package com.hmdp.service;
 
+import com.hmdp.dto.Result;
 import com.hmdp.entity.Shop;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IShopService extends IService<Shop> {
 
+    /**
+     * 利用redis得到商户信息
+     * @param id
+     * @return
+     */
+    Result getShopId(Long id);
+
+    /**
+     * 通过redis和数据库数据一致性更新商铺
+     * @param shop
+     * @return
+     */
+    Result updateShop(Shop shop);
 }
