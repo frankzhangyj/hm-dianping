@@ -10,6 +10,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Description 利用redis实现分布式锁 set key value ex ttl nx
+ *              但是没有实现可重入 不可重试(没有重试机制) 超时释放(如果业务时间过程 导致锁提前失效) 集群问题的主从一致
+ *
+ *              使用redisson可以解决上述问题
+ *              实现可重入(使用hash结果 设置一个value记录线程获取锁的次数 当为0时释放锁)
+ *              可重试(没有重试机制) 采用信号量机制每一次等待 当一个锁释放后才去重试 直到到达最大等待时间
+*               超时预约 利用watchDog定时任务 获取锁后每隔一段时间重置锁的过期时间 避免释放锁时业务延迟导致锁提前释放
+ *              在释放锁时 发送释放锁消息 取消watchDog (可能发生redis宕机 发生主从一致性问题)
+ *              主从一致 mutilock 对于redis集群 redisson直接取消主从 全部都单独配置分布式锁 然后一次请求所有redis中的锁 每一个都和单个锁过程一致
  * @Author frank
  * @Date 2024/11/11
  */
@@ -41,7 +49,7 @@ public class SimpleRedisLock implements ILock {
     public boolean tryLock(long timeout) {
         // 获取线程标示
         String threadId = ID_PREFIX + Thread.currentThread().getId();
-        // 获取锁 设置过期时间防止redis待机发生死锁
+        // 获取锁 设置过期时间防止redis待机发生死锁  set key value ex ttl nx
         Boolean success = stringRedisTemplate.opsForValue()
                 .setIfAbsent(KEY_PREFIX + name, threadId, timeout, TimeUnit.SECONDS);
         return Boolean.TRUE.equals(success);
