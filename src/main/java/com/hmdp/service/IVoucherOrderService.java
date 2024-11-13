@@ -22,8 +22,8 @@ public interface IVoucherOrderService extends IService<VoucherOrder> {
 
     /**
      * 通过AOP保证在抢购秒杀券时事务和锁的原子性
-     * @param voucherId
+     * @param voucherOrder
      * @return
      */
-    public Result createVoucherOrder(Long voucherId);
+    public void createVoucherOrder(VoucherOrder voucherOrder);
 }

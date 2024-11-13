@@ -76,9 +76,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 //        String code1 = (String)session.getAttribute("code");
         String code1 = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
 
-        if (code1 == null || !code1.equals(code)) {
-            return Result.fail("验证码错误");
-        }
+//        if (code1 == null || !code1.equals(code)) {
+//            return Result.fail("验证码错误");
+//        }
 
 
 //        User user = lambdaQuery().eq(User::getPhone, phone).one();
