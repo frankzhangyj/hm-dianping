@@ -27,4 +27,14 @@ public interface IShopService extends IService<Shop> {
      * @return
      */
     Result updateShop(Shop shop);
+
+    /**
+     * 按照地理位置分页查询
+     * @param typeId
+     * @param current
+     * @param x
+     * @param y
+     * @return
+     */
+    Result queryShopByType(Integer typeId, Integer current, Double x, Double y);
 }
