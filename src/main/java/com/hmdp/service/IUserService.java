@@ -33,4 +33,15 @@ public interface IUserService extends IService<User> {
      */
     Result login(LoginFormDTO loginForm, HttpSession session);
 
+    /**
+     * 通过redis中的bitmap实现签到
+     * @return
+     */
+    Result sign();
+
+    /**
+     * 通过redis中的bitmap得到连续签到天数
+     * @return
+     */
+    Result signCount();
 }
