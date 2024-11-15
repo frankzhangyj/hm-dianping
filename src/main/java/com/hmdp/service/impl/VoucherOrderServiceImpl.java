@@ -1,6 +1,8 @@
 package com.hmdp.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hmdp.dto.Result;
 import com.hmdp.entity.SeckillVoucher;
 import com.hmdp.entity.Voucher;
@@ -339,7 +341,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
             log.error("重复下单");
         }
 
-        // TODO 为什么lambda更新报错
+
 //        boolean success = seckillVoucherService.lambdaUpdate()
 //                .set(SeckillVoucher::getStock, voucher.getStock() - 1)
 //                .eq(SeckillVoucher::getVoucherId, voucher.getVoucherId())
